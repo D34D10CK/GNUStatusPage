@@ -73,7 +73,7 @@ if (Meteor.isServer) {
             };
         });
     }));
-  /*
+ 
     //--------------MPD-----------------
     Meteor.publish('song', () => {
         return Song.find();
@@ -107,7 +107,7 @@ if (Meteor.isServer) {
             Song.upsert({_id: 1}, {_id: 1, artist: artist, album: album, title: title});
         }
     }));
-*/
+
     //--------------TL------------------
     Meteor.publish('timeTables', () => {
         return TimeTables.find();
