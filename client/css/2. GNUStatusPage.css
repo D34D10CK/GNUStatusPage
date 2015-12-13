@@ -98,12 +98,12 @@ li {
 
 #right .element {
 	margin: 30px 30px 30px 15px;
-	height: calc(100% - 64px);
+	height: calc(100% - 60px);
 }
 
 #right .element .content {
 	overflow-y: hidden;
-	height: calc(100% - 60px - 10px);
+	height: calc(100% - 60px - 11px);
 }
 
 #left .element {
