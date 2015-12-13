@@ -1,0 +1,110 @@
+@font-face {
+	font-family: DINMedium;
+	src: url("fonts/DINMedium.ttf");
+}
+
+@font-face {
+	font-family: DINBold;
+	src: url("fonts/DINBold.ttf");
+}
+
+@font-face {
+	/*
+	EmojiSymbols Font (c)blockworks - Kenichi Kaneko
+	http://emojisymbols.com/
+	*/
+	font-family: emoji;
+	src: url("fonts/EmojiSymbols-Regular.woff");
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	color: #b1ceeb;
+  	background: #162740;
+}
+
+h1 {
+	font-size: 3em;
+	font-family: DINBold;
+	line-height: 1.5em;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: DINBold;
+	line-height: 1.5em;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: DINBold;
+	line-height: 1.5em;
+}
+
+p, span {
+	font-size: 1.5em;
+	font-family: DINMedium;
+	line-height: 1.5em;
+}
+
+li {
+	font-size: 2em;
+	font-family: DINMedium, emoji;
+	line-height: 1.5em;
+}
+
+#header {
+	background: yellow;
+	height: 10%;
+}
+
+#right, #left{
+	height: 90%;
+  	width: 50%;
+  	/*background: red;*/
+}
+
+#right {
+  	float: right;
+}
+
+#left {
+  	float: left;
+}
+
+.element {
+	padding: 10px;
+	border: solid #30568f 2px;
+	border-radius: 2px;
+	background: #1d4560;
+}
+
+#right .element {
+	margin: 30px 30px 30px 15px;
+	height: 100%;
+}
+
+#right .element .content {
+	overflow-y: hidden;
+}
+
+#left .element {
+	margin: 30px 15px 30px 30px;
+}
+
+#left .element .content {
+	white-space: nowrap;
+	overflow-x: hidden; 
+}
+
+li {
+	display: inline;
+}
+
+li + li:before {
+	content: "\00a0• ";
+}

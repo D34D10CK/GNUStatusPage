@@ -1,0 +1,65 @@
+<head>
+  	<title>GNUStatusPage</title>
+</head>
+
+<body>
+	<div id="header">
+		<h1>TITRE {{clock}}</h1>
+	</div>
+	<div id="left">
+		{{> timeTables}}
+		{{> mpd}}
+	</div>
+	<div id="right">
+	  	{{> irc}}
+	</div>
+</body>
+
+<template name="mpd">
+	<div class="element">
+		<div class="title">
+			<h1>MPD</h1>
+		</div>
+		<div class="content">
+		 	<h2>{{song.title}}</h2>
+			<span>by </span><h3>{{song.artist}}</h3>
+			<span>on </span><h3>{{song.album}}</h3>
+		</div>
+	</div>
+</template>
+
+<template name="timeTables">
+	<div class="element">
+		<div class="title">
+			<h1>M1</h1>
+		</div>
+		<div class="content">
+			<h2>Renens-Gare</h2>
+			<ul>
+			{{#each renens}}
+				<li>{{time}}</li>
+			{{/each}}
+			</ul>
+
+			<h2>Lausanne-Flon</h2>
+			<ul>
+			{{#each flon}}
+				<li>{{time}}</li>
+			{{/each}}
+			</ul>
+		</div>
+	</div>
+</template>
+
+<template name="irc">
+	<div class="element">
+		<div class="title">
+			<h1>#gnugeneration</h1>
+		</div>
+		<div class="content">
+			{{#each messages}}
+				<p>[{{formatDate timeStamp}}] {{from}}: {{message}}</p>
+			{{/each}}
+		</div>
+	</div>
+</template>
