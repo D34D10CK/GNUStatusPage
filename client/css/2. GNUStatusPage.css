@@ -17,6 +17,10 @@
 	src: url("fonts/EmojiSymbols-Regular.woff");
 }
 
+* {
+	box-sizing: border-box;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -58,14 +62,23 @@ li {
 }
 
 #header {
-	background: yellow;
-	height: 10%;
+	background: #031c35;
+	height: 5em;
+	padding: 0 30px;
+	width: 100%;
+}
+
+#header h1 {
+	display: inline;
+}
+
+#header .right {
+	float: right;
 }
 
 #right, #left{
-	height: 90%;
+	height: calc(100% - 5em);
   	width: 50%;
-  	/*background: red;*/
 }
 
 #right {
@@ -85,11 +98,12 @@ li {
 
 #right .element {
 	margin: 30px 30px 30px 15px;
-	height: 100%;
+	height: calc(100% - 64px);
 }
 
 #right .element .content {
 	overflow-y: hidden;
+	height: calc(100% - 60px - 10px);
 }
 
 #left .element {
