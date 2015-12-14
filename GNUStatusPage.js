@@ -117,8 +117,8 @@ if (Meteor.isServer) {
     var flon = 3377704015495518;
     var m1 = 11821953316814882;
 
-    var RenensUrl = "http://syn.t-l.ch/apps/LineStopDeparturesList?roid=" + renens + "&lineid=" + m1 + "&date=";
-    var FlonUrl = "http://syn.t-l.ch/apps/LineStopDeparturesList?roid=" + flon + "&lineid=" + m1 + "&date=";
+    var renensUrl = "http://syn.t-l.ch/apps/LineStopDeparturesList?roid=" + renens + "&lineid=" + m1 + "&date=";
+    var flonUrl = "http://syn.t-l.ch/apps/LineStopDeparturesList?roid=" + flon + "&lineid=" + m1 + "&date=";
 
     var getTime = function(destination, json) {
         var journey = JSON.parse(json).journeys.journey || [];
@@ -140,21 +140,19 @@ if (Meteor.isServer) {
         TimeTables.remove({destination: destination, id: {$gt: journey.length - 1}});   
     }
 
-    var loop = function() {
+    Meteor.setInterval(() => {
         var now = moment(new Date()).format('YYYY-MM-DD HH:mm');
 
-        HTTP.get(RenensUrl + now, (error, result) => {
+        HTTP.get(renensUrl + now, (error, result) => {
             if (!error) {
                 getTime('renens', result.content);
             }
         });
         
-        HTTP.get(FlonUrl + now, (error, result) => {
+        HTTP.get(flonUrl + now, (error, result) => {
             if (!error) {
                 getTime('flon', result.content);
             }
         });
-    }
-
-    Meteor.setInterval(loop, 20000);
+    }, 20000);
 }
