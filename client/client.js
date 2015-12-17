@@ -1,5 +1,5 @@
 Meteor.setInterval(() => {
-    Session.set('clock', moment(new Date()).format('HH:mm:ss'));
+    Session.set('clock', moment(new Date()).format('ddd D MMM • HH:mm:ss'));
 }, 1000);
 
 Meteor.subscribe('song');
