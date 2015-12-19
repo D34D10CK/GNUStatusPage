@@ -60,6 +60,9 @@
 		<div class="content">
 			{{#each messages}}
 				<p>{{formatDate timeStamp}} [{{from}}] {{message}}</p>
+				{{#if dayChanged timeStamp}}
+					<p style="text-align: center">{Day Changed}</p>
+				{{/if}}
 			{{/each}}
 		</div>
 	</div>

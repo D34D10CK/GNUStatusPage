@@ -99,11 +99,16 @@ li {
 #right .element {
 	margin: 30px 30px 30px 15px;
 	height: calc(100% - 60px);
+	/*
+	position: relative;*/
 }
 
 #right .element .content {
 	overflow-y: hidden;
 	height: calc(100% - 60px - 11px);
+	/*
+	position: absolute;
+	bottom: 0;*/
 }
 
 #left .element {

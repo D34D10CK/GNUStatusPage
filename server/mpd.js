@@ -23,9 +23,23 @@ socket.on('data', Meteor.bindEnvironment((data) => {
     } 
 
     if (data.startsWith('file:')) {
-        var artist = data.slice(data.indexOf('Artist: ') + 'Artist: '.length, data.indexOf('\n', data.indexOf('Artist: ')));
-        var album = data.slice(data.indexOf('Album: ') + 'Album: '.length, data.indexOf('\n', data.indexOf('Album: ')));
-        var title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
+        var artist;
+        var album;
+        var title;
+        if (data.includes('Artist:') && data.includes('Album:') && data.includes('Title:')) {
+            artist = data.slice(data.indexOf('Artist: ') + 'Artist: '.length, data.indexOf('\n', data.indexOf('Artist: ')));
+            album = data.slice(data.indexOf('Album: ') + 'Album: '.length, data.indexOf('\n', data.indexOf('Album: ')));
+            title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
+        } else {
+            title = data.slice(data.indexOf('file: ') + 'file: '.length, data.indexOf('\n', data.indexOf('file: ')));
+            title = title.slice(title.lastIndexOf('/') + 1);
+            title = title.slice(0, title.lastIndexOf('.'));
+            if (title.startsWith('youtube')) {
+                title = title.replace('youtube_', '');
+            }
+            album = '— ';
+            artist = '— ';
+        }
         
         Song.upsert({_id: 1}, {_id: 1, artist: artist, album: album, title: title});
     }
