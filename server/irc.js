@@ -7,15 +7,13 @@ var client = new irc.Client('adams.freenode.net', 'CeciEstUnBot', {
 });
 
 client.connect(5, (input) => {
-    console.log('connected');
+    console.log('connected to IRC');
     client.join('#gnugeneration', (input) => {
-        console.log('joined');
-        //client.say('#gnugeneration', 'Bonjour!');
+        console.log('joined #gnugeneration');
     })
 });
 
 client.addListener('message#gnugeneration', Meteor.bindEnvironment((from, text) => {
-    console.log(text);
     Messages.insert({
         from: from, 
         message: text, 
