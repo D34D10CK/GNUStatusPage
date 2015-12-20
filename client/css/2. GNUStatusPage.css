@@ -115,9 +115,9 @@ li {
 	margin: 30px 15px 30px 30px;
 }
 
-#left .element .content {
-	white-space: nowrap;
-	overflow-x: hidden; 
+#left ul {
+	height: 3em;
+	overflow: hidden;
 }
 
 li {
@@ -125,5 +125,5 @@ li {
 }
 
 li + li:before {
-	content: "\00a0• ";
+	content: "\00a0•\00a0";
 }
