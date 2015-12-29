@@ -37,9 +37,12 @@ var connectToMPD = function () {
                 title = title.slice(0, title.lastIndexOf('.'));
                 if (title.startsWith('youtube')) {
                     title = title.replace('youtube_', '');
+                    album = 'Youtube';
+                    artist = '— ';
+                } else {
+                    album = '— ';
+                    artist = '— ';
                 }
-                album = '— ';
-                artist = '— ';
             }
 
             Song.upsert({_id: 1}, {_id: 1, artist: artist, album: album, title: title});
