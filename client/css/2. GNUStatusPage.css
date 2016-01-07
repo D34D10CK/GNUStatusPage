@@ -1,6 +1,6 @@
 @font-face {
-	font-family: DINMedium;
-	src: url("fonts/DINMedium.ttf");
+	font-family: DIN1451;
+	src: url("fonts/din1451alt.ttf");
 }
 
 @font-face {
@@ -51,13 +51,13 @@ h3 {
 
 p, span {
 	font-size: 1.5em;
-	font-family: DINMedium;
+	font-family: DIN1451;
 	line-height: 1.5em;
 }
 
 li {
 	font-size: 2em;
-	font-family: DINMedium, emoji;
+	font-family: DIN1451, emoji;
 	line-height: 1.5em;
 }
 
