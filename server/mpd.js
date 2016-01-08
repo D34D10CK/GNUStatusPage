@@ -38,14 +38,19 @@ var connectToMPD = function () {
                 if (title.startsWith('youtube')) {
                     title = title.replace('youtube_', '');
                     album = 'Youtube';
-                    artist = '— ';
+                    artist = '—';
                 } else {
-                    album = '— ';
-                    artist = '— ';
+                    album = '—';
+                    artist = '—';
                 }
             }
 
             Song.upsert({_id: 1}, {_id: 1, artist: artist, album: album, title: title});
+        } else if(data.startsWith('Title:')) {
+            var title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
+            var name = data.slice(data.indexOf('Name: ') + 'Name: '.length, data.indexOf('\n', data.indexOf('Name: ')));
+
+            Song.upsert({_id: 1}, {_id: 1, artist: '—', album: name, title: title}); 
         }
     }));
 
