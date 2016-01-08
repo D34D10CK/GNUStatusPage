@@ -1,7 +1,4 @@
-@font-face {
-	font-family: DIN1451;
-	src: url("fonts/din1451alt.ttf");
-}
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 
 @font-face {
 	font-family: DINBold;
@@ -51,13 +48,13 @@ h3 {
 
 p, span {
 	font-size: 1.5em;
-	font-family: DIN1451;
+	font-family: 'Montserrat';
 	line-height: 1.5em;
 }
 
 li {
 	font-size: 2em;
-	font-family: DIN1451, emoji;
+	font-family: 'Montserrat', emoji;
 	line-height: 1.5em;
 }
 
