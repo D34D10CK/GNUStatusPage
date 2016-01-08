@@ -31,7 +31,12 @@ var connectToMPD = function () {
                 artist = data.slice(data.indexOf('Artist: ') + 'Artist: '.length, data.indexOf('\n', data.indexOf('Artist: ')));
                 album = data.slice(data.indexOf('Album: ') + 'Album: '.length, data.indexOf('\n', data.indexOf('Album: ')));
                 title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
-            } else {
+            } else if (data.includes('Title:') && data.includes('Name: '))  {
+                title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
+                album = data.slice(data.indexOf('Name: ') + 'Name: '.length, data.indexOf('\n', data.indexOf('Name: ')));
+                artist = '—';
+            }
+            else {
                 title = data.slice(data.indexOf('file: ') + 'file: '.length, data.indexOf('\n', data.indexOf('file: ')));
                 title = title.slice(title.lastIndexOf('/') + 1);
                 title = title.slice(0, title.lastIndexOf('.'));
@@ -46,11 +51,6 @@ var connectToMPD = function () {
             }
 
             Song.upsert({_id: 1}, {_id: 1, artist: artist, album: album, title: title});
-        } else if(data.startsWith('Title:')) {
-            var title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
-            var name = data.slice(data.indexOf('Name: ') + 'Name: '.length, data.indexOf('\n', data.indexOf('Name: ')));
-
-            Song.upsert({_id: 1}, {_id: 1, artist: '—', album: name, title: title}); 
         }
     }));
 
