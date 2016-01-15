@@ -1,4 +1,4 @@
-Meteor.publish('song', () => Songs.findOne({}, {sort: {$natural: -1}}));
+Meteor.publish('song', () => Songs.find({}, {sort: {$natural: -1}, limit: 1}));
 
 var url = 'mpd.gnugen.ch'
 var port = 6600;
