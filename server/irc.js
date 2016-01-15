@@ -20,7 +20,7 @@ client.addListener('message#gnugeneration', Meteor.bindEnvironment((from, text) 
     if (text.startsWith(nick)) {
         if (text.includes('!mpd')) {
             var list = Songs.find({}, {sort: {$natural: -1}}).fetch();
-            list = list.join('\r\n');
+            list = list.reduce((prev, curr) => prev + '\n' + curr.title + ' by ' + curr.artist + ' on ' + curr.album, '');
 
             client.ctcp(from, 'privmsg', list);
         }
