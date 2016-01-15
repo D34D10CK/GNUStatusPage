@@ -1,6 +1,4 @@
-Meteor.publish('song', () => {
-    return Song.find();
-});
+Meteor.publish('song', () => Songs.findOne({}, {sort: {$natural: -1}}));
 
 var url = 'mpd.gnugen.ch'
 var port = 6600;
@@ -52,7 +50,9 @@ var connectToMPD = function() {
                 }
             }
 
-            Song.upsert({_id: 1}, {_id: 1, artist, album, title});
+            if (!Songs.findOne({artist, album, title}, {sort: {$natural: -1}})) {
+                Songs.insert({artist, album, title});                
+            }
         }
     }));
 
@@ -75,7 +75,7 @@ var connectToMPD = function() {
 }
 
 var getValue = function(string, value) {
-    return string.slice(data.indexOf(value) + value.length, data.indexOf('\n', data.indexOf(value)));
+    return string.slice(string.indexOf(value) + value.length, string.indexOf('\n', string.indexOf(value)));
 }
 
 connectToMPD();
