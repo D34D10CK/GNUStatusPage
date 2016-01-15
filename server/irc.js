@@ -1,9 +1,7 @@
-Meteor.publish('messages', () => {
-    return Messages.find({}, {sort: {timeStamp: -1}, limit: 50});
-});
+Meteor.publish('messages', () => Messages.find({}, {sort: {timeStamp: -1}, limit: 50}));
 
 var url = 'adams.freenode.net';
-var nick = 'CeciEstUnBot'
+var nick = 'CeciEstUnBot';
 
 var client = new irc.Client(url, nick, {
     autoConnect: false
@@ -17,16 +15,6 @@ client.connect(5, (input) => {
 });
 
 client.addListener('message#gnugeneration', Meteor.bindEnvironment((from, text) => {
-    if (text.startsWith(nick)) {
-        if (text.includes('!mpd')) {
-            var cursor = Songs.find({}, {sort: {$natural: -1}});
-	    var list = cursor.map(song => song.title + ' by ' + song.artist + ' on ' + song.album).join('\r\n');
-	    console.log(list);
-
-  	    client.say(from, list);
-        }
-    }
-
     Messages.insert({
         from: from,
         message: text,
@@ -36,4 +24,13 @@ client.addListener('message#gnugeneration', Meteor.bindEnvironment((from, text) 
             console.log(error);
         };
     });
+}));
+
+client.addListener('pm', Meteor.bindEnvironment((from, text) => {
+    if (text == '!mpd') {
+        var cursor = Songs.find({}, {sort: {$natural: -1}});
+        var list = cursor.map(song => song.title + ' by ' + song.artist + ' on ' + song.album).join('\r\n');
+
+        client.say(from, list);
+    }
 }));
