@@ -8,7 +8,7 @@ Meteor.subscribe('messages');
 
 Template.mpd.helpers({
     song: function() {
-        return Song.findOne();
+        return Songs.findOne();
     }
 });
 
