@@ -20,16 +20,16 @@ client.addListener('message#gnugeneration', Meteor.bindEnvironment((from, text) 
     if (text.startsWith(nick)) {
         if (text.includes('!mpd')) {
             var cursor = Songs.find({}, {sort: {$natural: -1}});
-            cursor.forEach(song => {
-                var message =  song.title + ' by ' + song.artist + ' on ' + song.album;
-                client.ctcp(from, 'privmsg', message);
-            });
+	    var list = cursor.map(song => song.title + ' by ' + song.artist + ' on ' + song.album).join('\r\n');
+	    console.log(list);
+
+  	    client.say(from, list);
         }
     }
 
     Messages.insert({
-        from: from, 
-        message: text, 
+        from: from,
+        message: text,
         timeStamp: new Date()
     }, (error) => {
         if (error) {
