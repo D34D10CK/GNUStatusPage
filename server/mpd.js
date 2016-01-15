@@ -7,12 +7,12 @@ var port = 6600;
 
 var net = Npm.require('net');
 
-var connectToMPD = function () {
+var connectToMPD = function() {
     var socket = new net.Socket({allowHalfOpen: false});
     socket.setEncoding('utf8');
 
     var waitingForEvent = false;
-    socket.on('data', Meteor.bindEnvironment((data) => {
+    socket.on('data', Meteor.bindEnvironment(data => {
         if (data.includes('OK')) {
             if (!waitingForEvent) {
                 socket.write('idle player\r\n');
@@ -23,34 +23,36 @@ var connectToMPD = function () {
             } 
         } 
 
-        if (data.startsWith('file:')) {
-            var artist;
-            var album;
-            var title;
-            if (data.includes('Artist:') && data.includes('Album:') && data.includes('Title:')) {
-                artist = data.slice(data.indexOf('Artist: ') + 'Artist: '.length, data.indexOf('\n', data.indexOf('Artist: ')));
-                album = data.slice(data.indexOf('Album: ') + 'Album: '.length, data.indexOf('\n', data.indexOf('Album: ')));
-                title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
-            } else if (data.includes('Title:') && data.includes('Name: '))  {
-                title = data.slice(data.indexOf('Title: ') + 'Title: '.length, data.indexOf('\n', data.indexOf('Title: ')));
-                album = data.slice(data.indexOf('Name: ') + 'Name: '.length, data.indexOf('\n', data.indexOf('Name: ')));
-                artist = '—';
+        if (data.startsWith('file: ')) {
+            var artist = '—';
+            var album = '—';
+            var title = '—';
+
+            if (data.includes('Artist: ')) {
+                artist = getValue(data, 'Artist: ');
             }
-            else {
-                title = data.slice(data.indexOf('file: ') + 'file: '.length, data.indexOf('\n', data.indexOf('file: ')));
+            if (data.includes('Album: ')) {
+                album = getValue(data, 'Album: ');
+            }
+            if (data.includes('Name: ')) {
+                album = getValue(data, 'Name: ');
+            }
+            if (data.includes('Title: ')) {
+                title = getValue(data, 'Title: ');
+            }
+
+            if (artist == '—' && album == '—' && title == '—') {
+                title = getValue(data, 'file: ');
                 title = title.slice(title.lastIndexOf('/') + 1);
                 title = title.slice(0, title.lastIndexOf('.'));
-                if (title.startsWith('youtube')) {
+
+                if (title.startsWith('youtube_')) {
                     title = title.replace('youtube_', '');
                     album = 'Youtube';
-                    artist = '—';
-                } else {
-                    album = '—';
-                    artist = '—';
                 }
             }
 
-            Song.upsert({_id: 1}, {_id: 1, artist: artist, album: album, title: title});
+            Song.upsert({_id: 1}, {_id: 1, artist, album, title});
         }
     }));
 
@@ -70,6 +72,10 @@ var connectToMPD = function () {
         socket.setKeepAlive(true, 10000);
         console.log('connected to MPD');
     });
+}
+
+var getValue = function(string, value) {
+    return string.slice(data.indexOf(value) + value.length, data.indexOf('\n', data.indexOf(value)));
 }
 
 connectToMPD();
