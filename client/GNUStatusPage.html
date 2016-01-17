@@ -57,13 +57,15 @@
 		<div class="title">
 			<h1>#gnugeneration</h1>
 		</div>
-		<div class="content">
-			{{#each messages}}
-				<p>{{formatDate timeStamp}} [{{from}}] {{message}}</p>
-				{{#if dayChanged timeStamp}}
-					<p style="text-align: center">{Day Changed}</p>
-				{{/if}}
-			{{/each}}
+		<div class="wrapper">	
+			<div class="content">
+				{{#each messages}}
+					<p>{{formatDate timeStamp}} [{{from}}] {{message}}</p>
+					{{#if dayChanged timeStamp}}
+						<p style="text-align: center">{Day Changed}</p>
+					{{/if}}
+				{{/each}}
+			</div>
 		</div>
 	</div>
 </template>

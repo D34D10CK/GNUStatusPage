@@ -23,7 +23,7 @@ Template.timeTables.helpers({
 
 Template.irc.helpers({
     messages: function() {
-        return Messages.find({}, {sort: {timeStamp: -1}});
+        return Messages.find({}, {sort: {timeStamp: 1}});
     },
     dayChanged: function(date) {
         var previous = Messages.findOne({timeStamp: {$lt: date}}, {sort: {timeStamp: -1}});

@@ -93,19 +93,24 @@ li {
 	background: #1d4560;
 }
 
+#right .title {
+	margin-bottom: 10px;
+}
+
 #right .element {
 	margin: 30px 30px 30px 15px;
 	height: calc(100% - 60px);
-	/*
-	position: relative;*/
 }
 
-#right .element .content {
+#right .element .wrapper {
 	overflow-y: hidden;
 	height: calc(100% - 60px - 11px);
-	/*
+	position: relative;
+}
+
+#right .element .wrapper .content {
 	position: absolute;
-	bottom: 0;*/
+	bottom: 10px;
 }
 
 #left .element {
