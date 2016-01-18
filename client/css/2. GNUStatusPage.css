@@ -105,12 +105,12 @@ li {
 #right .element .wrapper {
 	overflow-y: hidden;
 	height: calc(100% - 60px - 11px);
-	position: relative;
+	transform: rotate(180deg);
+	padding-top: 10px;
 }
 
 #right .element .wrapper .content {
-	position: absolute;
-	bottom: 10px;
+	transform: rotate(180deg);
 }
 
 #left .element {
