@@ -29,8 +29,9 @@ client.addListener('message#gnugeneration', Meteor.bindEnvironment((from, text) 
 client.addListener('pm', Meteor.bindEnvironment((from, text) => {
     if (text == '!mpd') {
         var cursor = Songs.find({}, {sort: {$natural: -1}});
-        var list = cursor.map(song => song.title + ' by ' + song.artist + ' on ' + song.album).join('\r\n');
-
-        client.say(from, list);
+        var list = cursor.forEach(song => {
+            var message = song.title + ' by ' + song.artist + ' on ' + song.album;
+            client.say(from, message);
+        });
     }
 }));
