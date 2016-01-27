@@ -56,7 +56,7 @@ var connectToMPD = function() {
             }
 
             var last = Songs.findOne({}, {sort: {date: -1}});
-            if (last.artist != artist && last.album != album && last.title != title) {
+            if (!last || last.artist != artist && last.album != album && last.title != title) {
                 Songs.insert({artist, album, title, date: new Date()});                
             }
         }
