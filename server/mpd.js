@@ -1,4 +1,4 @@
-Meteor.publish('song', () => Songs.find({}, {sort: {$natural: -1}, limit: 1}));
+Meteor.publish('song', () => Songs.find({}, {sort: {date: -1}, limit: 1}));
 
 var url = 'mpd.gnugen.ch'
 var port = 6600;
@@ -50,8 +50,14 @@ var connectToMPD = function() {
                 }
             }
 
-            if (!Songs.findOne({artist, album, title}, {sort: {$natural: -1}})) {
-                Songs.insert({artist, album, title});                
+            if (Songs.find().count() == 20) {
+                var first = Songs.findOne({}, {sort: {date: 1}});
+                Songs.remove(first);
+            }
+
+            var last = Songs.findOne({}, {sort: {date: -1}});
+            if (last.artist != artist && last.album != album && last.title != title) {
+                Songs.insert({artist, album, title, date: new Date()});                
             }
         }
     }));
