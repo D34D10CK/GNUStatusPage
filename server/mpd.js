@@ -50,15 +50,22 @@ var connectToMPD = function() {
                 }
             }
 
-            if (Songs.find().count() == 20) {
-                var first = Songs.findOne({}, {sort: {date: 1}});
-                Songs.remove(first);
-            }
+            var id = 20;
 
             var last = Songs.findOne({}, {sort: {date: -1}});
             if (!last || !(last.artist == artist && last.album == album && last.title == title)) {
-                Songs.insert({artist, album, title, date: new Date()});                
+                Songs.insert({id, artist, album, title, date: new Date()});                
             }
+
+            Songs.find({}, {sort: {date: -1}}).forEach(song => {
+                song.id = id;
+                Songs.update({_id: song._id}, song);
+                id--;
+            });
+            
+            id = 20;
+
+            Songs.remove({id: {$lt: 1}});
         }
     }));
 
