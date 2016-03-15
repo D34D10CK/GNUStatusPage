@@ -3,6 +3,7 @@ Meteor.publish('messages', () => Messages.find({}, {sort: {timeStamp: -1}, limit
 var url = 'adams.freenode.net';
 var nick = 'CeciEstUnBot';
 
+var irc = Meteor.npmRequire('irc');
 var client = new irc.Client(url, nick, {
     autoConnect: false,
     floodProtection: true
