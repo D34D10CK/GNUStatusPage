@@ -26,21 +26,25 @@ var getTime = function(destination, json) {
         TimeTables.upsert({destination: destination, id: i}, {destination: destination, time: time, id: i});
     }
 
-    TimeTables.remove({destination: destination, id: {$gt: journey.length - 1}});   
+    TimeTables.remove({destination: destination, id: {$gt: journey.length - 1}});
 }
 
 Meteor.setInterval(() => {
     var now = moment(new Date()).format('YYYY-MM-DD HH:mm');
 
-    HTTP.get(renensUrl + now, (error, result) => {
+    HTTP.call('GET', renensUrl + now, (error, result) => {
         if (!error) {
             getTime('renens', result.content);
+        } else {
+            console.log(error);
         }
     });
-    
-    HTTP.get(flonUrl + now, (error, result) => {
+
+    HTTP.call('GET', flonUrl + now, (error, result) => {
         if (!error) {
             getTime('flon', result.content);
+        } else {
+            console.log(error);
         }
     });
 }, 20000);

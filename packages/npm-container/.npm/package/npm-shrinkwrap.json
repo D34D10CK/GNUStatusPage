@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "irc": {
+      "version": "0.4.1",
+      "dependencies": {
+        "irc-colors": {
+          "version": "1.2.0",
+          "dependencies": {
+            "hashish": {
+              "version": "0.0.4",
+              "dependencies": {
+                "traverse": {
+                  "version": "0.6.6"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
